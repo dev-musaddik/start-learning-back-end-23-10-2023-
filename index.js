@@ -245,28 +245,41 @@
 
 // ----------------with stream-----------------
 
+// const fs = require("fs");
+// const http = require("http");
+
+// const server = http.createServer();
+
+// server.on("request", (req, res) => {
+//   const rstream=fs.createReadStream('input.txt')
+//   rstream.on('data',(getdata) => {
+//     res.write(getdata)
+//     res.end();
+//   })
+//   rstream.on('end', () =>{
+//     console.log('readable stream')
+//     res.end();
+//   })
+//   rstream.on('error', (err) =>{
+//     console.log(err)
+//     res.end('not found');
+
+//   })
+// });
+
+// server.listen(2000, "localhost", () => {
+//   console.log("Server is running on http://localhost:2000/");
+// });
+
+// ----------------shortcut stream----------------------------
+
 const fs = require("fs");
 const http = require("http");
-
-const server = http.createServer();
-
+const server = http.createServer()
 server.on("request", (req, res) => {
-  const rstream=fs.createReadStream('input.txt')
-  rstream.on('data',(getdata) => {
-    res.write(getdata)
-    res.end();
-  })
-  rstream.on('end', () =>{
-    console.log('readable stream')
-    res.end();
-  })
-  rstream.on('error', (err) =>{
-    console.log(err)
-    res.end('not found');
 
-  })
-});
+const rstream = fs.createReadStream('input.txt');
+rstream.pipe(res)
 
-server.listen(2000, "localhost", () => {
-  console.log("Server is running on http://localhost:2000/");
-});
+})
+server.listen(2000, "localhost",)
